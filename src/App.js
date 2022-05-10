@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import {AppBar, Button, Container, List, ListItem, Typography} from "@mui/material";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import Book from "./components/Book";
+import AddIcon from "@mui/icons-material/Add"
+import AddBookDialog from "./components/AddBookDialog";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [books, setBooks] = useState([]);
+    const [displayAddBookDialog, setDisplayAddBookDialog] = useState(false);
+
+    useEffect(() => {
+        fetchBooks().then();
+    }, []);
+
+    const fetchBooks = async () => {
+        const results = await axios.get("http://localhost:3001/books");
+        setBooks(results.data);
+    }
+
+    return (
+        <Container>
+            <AppBar >
+                <Typography variant={"h2"} textAlign={"center"}> Galvanize Library</Typography>
+            </AppBar>
+            <List dense={true} sx={{marginTop:10}}>
+                <ListItem>
+                    <Button variant={"contained"} startIcon={<AddIcon/>} onClick={() => {setDisplayAddBookDialog(!displayAddBookDialog)}}> Add New Book </Button>
+                    <AddBookDialog isOpen={displayAddBookDialog} handleClose={setDisplayAddBookDialog} fetchBooks={fetchBooks}/>
+                </ListItem>
+                {books.map(book => {
+                    return <Book key={book.id} book={book} fetchBooks={fetchBooks}/>
+                })}
+            </List>
+
+        </Container>
+    );
 }
 
 export default App;
