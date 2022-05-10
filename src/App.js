@@ -26,7 +26,7 @@ function App() {
             </AppBar>
             <List dense={true} sx={{marginTop:10}}>
                 <ListItem>
-                    <Button variant={"contained"} startIcon={<AddIcon/>} onClick={() => {setDisplayAddBookDialog(!displayAddBookDialog)}}> Add New Book </Button>
+                    <Button className={"add-book-button"} variant={"contained"} startIcon={<AddIcon/>} onClick={() => {setDisplayAddBookDialog(!displayAddBookDialog)}}> Add New Book </Button>
                     <AddBookDialog isOpen={displayAddBookDialog} handleClose={setDisplayAddBookDialog} fetchBooks={fetchBooks}/>
                 </ListItem>
                 {books.map(book => {

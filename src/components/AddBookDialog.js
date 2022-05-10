@@ -36,6 +36,7 @@ const AddBookDialog = ({isOpen, handleClose, fetchBooks}) => {
                     required
                     label={"Title"}
                     variant={"outlined"}
+                    className={"title-input"}
                     onChange={event => setTitle(event.target.value)}
                     helperText={isValid ? "" : "Enter a book title."}
                 />
@@ -43,12 +44,13 @@ const AddBookDialog = ({isOpen, handleClose, fetchBooks}) => {
                     required
                     label={"Author"}
                     variant={"outlined"}
+                    className={"author-input"}
                     onChange={event => setAuthor(event.target.value)}
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => handleClose(false)}> Cancel </Button>
-                <Button disabled={!isValid} onClick={addBook}> Add Book </Button>
+                <Button className={"add-book-cancel"} onClick={() => handleClose(false)}> Cancel </Button>
+                <Button className={"add-book-submit"} disabled={!isValid} onClick={addBook}> Add Book </Button>
             </DialogActions>
 
         </Dialog>
